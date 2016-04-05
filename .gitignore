@@ -1,8 +1,38 @@
-*.iml
-.gradle
+# Built application files
+*.apk
+*.ap_
+
+# Files for the Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+
+# Android Studio specific files
+.navigation/
+captures/
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
 /local.properties
 /.idea/workspace.xml
-/.idea/libraries
+.idea/
+*.iml
+
+# The build key password
+gradle.properties
+
+# Log Files
+*.log
+
+# OS-specific folder attributes
 .DS_Store
-/build
-/captures
+Thumbs.db
