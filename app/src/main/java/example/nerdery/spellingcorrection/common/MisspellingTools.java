@@ -1,5 +1,7 @@
 package example.nerdery.spellingcorrection.common;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,9 +18,11 @@ import example.nerdery.spellingcorrection.model.Person;
  */
 public class MisspellingTools {
 
-    private static double INFO_THRESHOLD = .50;
+    private static double INFO_THRESHOLD = .75;
 
     /**
+     * Returns a list of people that are within the threshold of the mutual information they reveal
+     * about each other
      *
      * @param searchTerm
      * @param people
@@ -26,10 +30,16 @@ public class MisspellingTools {
      */
     public static List<Person> bestMatches(String searchTerm, List<Person> people) {
         HashMap<Person, Double> matches = new HashMap<>();
-
+        double searchEntropy = entropy(searchTerm);
         for (Person p : people) {
-            double mutual = mutualInformation(searchTerm, p.toString());
-            if(mutual < INFO_THRESHOLD) {
+            double mutual = mutualInformation(searchTerm, p.getFullName());
+            double theoreticalYield = (searchEntropy - mutual) / searchEntropy;
+            Log.d("Entropy", "SearchTerm: " + searchEntropy);
+            Log.d("Entropy", "Person: " + p.getFullName());
+            Log.d("Entropy", "Mutual: " + mutual);
+            Log.d("Entropy", "Yield: " + theoreticalYield);
+            Log.d("Entropy", "");
+            if(theoreticalYield > INFO_THRESHOLD) {
                 matches.put(p, mutual);
             }
         }
@@ -171,11 +181,11 @@ public class MisspellingTools {
     }
 
 
-    public static double getInfoThreshold() {
+    public double getInfoThreshold() {
         return INFO_THRESHOLD;
     }
 
-    public static void setInfoThreshold(double infoThreshold) {
+    public void setInfoThreshold(double infoThreshold) {
         INFO_THRESHOLD = infoThreshold;
     }
 

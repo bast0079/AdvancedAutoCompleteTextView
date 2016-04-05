@@ -4,7 +4,6 @@ package example.nerdery.spellingcorrection.model;
  * Created by sbastin on 4/4/16.
  */
 public class Person  {
-    private StringBuilder sb = new StringBuilder();
     String firstName;
     String lastName;
 
@@ -29,9 +28,7 @@ public class Person  {
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        sb.append(firstName).append(" ").append(lastName);
-        return sb.toString();
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }

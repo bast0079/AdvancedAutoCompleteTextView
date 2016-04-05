@@ -86,17 +86,12 @@ public class SearchAdapter extends ArrayAdapter<Person> implements Filterable{
                 if(results.values != null) {
                     filteredGuests = (List<Person>)results.values;
                     if(filteredGuests.size() == 0 && constraint != null && constraint.length() > 3) {
-
-                        filteredGuests = MisspellingTools.bestMatches(constraint.toString(), persons);
+                        List<Person> peeps = MisspellingTools.bestMatches(constraint.toString(), persons);
+                        filteredGuests = peeps;
                     }
                     notifyDataSetChanged();
                 }
             }
         };
     }
-
-
-
-
-
 }
