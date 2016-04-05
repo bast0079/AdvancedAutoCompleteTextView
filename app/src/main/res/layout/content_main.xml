@@ -13,7 +13,7 @@
     tools:showIn="@layout/activity_main">
 
     <AutoCompleteTextView
-        android:id="@+id/map_search_bar_normal"
+        android:id="@+id/search_bar_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
