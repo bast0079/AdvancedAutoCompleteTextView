@@ -24,13 +24,13 @@ public class MisspellingTools {
      * @param people
      * @return
      */
-    public static List<String> bestMatches(String searchTerm, List<Person> people) {
-        HashMap<String, Double> matches = new HashMap<>();
+    public static List<Person> bestMatches(String searchTerm, List<Person> people) {
+        HashMap<Person, Double> matches = new HashMap<>();
 
         for (Person p : people) {
             double mutual = mutualInformation(searchTerm, p.toString());
             if(mutual < INFO_THRESHOLD) {
-                matches.put(p.toString(), mutual);
+                matches.put(p, mutual);
             }
         }
 
@@ -43,19 +43,20 @@ public class MisspellingTools {
      * @param unsortedMap - HashMap from bestMatches
      * @return - sorted HashMap
      */
-    private static Map<String, Double> sortByComparator(Map<String, Double> unsortedMap) {
-        List<Map.Entry<String, Double>> list = new LinkedList<>(unsortedMap.entrySet());
+    private static Map<Person, Double> sortByComparator(Map<Person, Double> unsortedMap) {
 
-        Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+        List<Map.Entry<Person, Double>> list = new LinkedList<>(unsortedMap.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<Person, Double>>() {
             @Override
-            public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
+            public int compare(Map.Entry<Person, Double> o1, Map.Entry<Person, Double> o2) {
                 return o1.getValue().compareTo(o2.getValue());
             }
         });
 
-        Map<String, Double> sortedMap = new LinkedHashMap<>();
+        Map<Person, Double> sortedMap = new LinkedHashMap<>();
 
-        for (Map.Entry<String, Double> entry : list) {
+        for (Map.Entry<Person, Double> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
 

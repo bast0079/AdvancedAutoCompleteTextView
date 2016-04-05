@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.nerdery.spellingcorrection.R;
+import example.nerdery.spellingcorrection.common.MisspellingTools;
 import example.nerdery.spellingcorrection.model.Person;
 
 /**
@@ -39,7 +40,7 @@ public class SearchAdapter extends ArrayAdapter<Person> implements Filterable{
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(layoutResourceId, parent, false);
         //TODO: add in layout xml
-        personNameLabel = (TextView) convertView.findViewById(R.id.row_guest_name);
+        personNameLabel = (TextView) convertView.findViewById(R.id.row_person_name);
         Person guest = filteredGuests.get(position);
         String guestName = guest.getFirstName().concat(" ").concat(guest.getLastName());
 
@@ -84,6 +85,10 @@ public class SearchAdapter extends ArrayAdapter<Person> implements Filterable{
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if(results.values != null) {
                     filteredGuests = (List<Person>)results.values;
+                    if(filteredGuests.size() == 0 && constraint != null && constraint.length() > 3) {
+
+                        filteredGuests = MisspellingTools.bestMatches(constraint.toString(), persons);
+                    }
                     notifyDataSetChanged();
                 }
             }
