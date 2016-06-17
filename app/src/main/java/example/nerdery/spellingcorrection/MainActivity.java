@@ -1,5 +1,6 @@
 package example.nerdery.spellingcorrection;
 
+
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import example.nerdery.spellingcorrection.adapter.SearchAdapter;
@@ -24,22 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        people.add(new Person("Steve", "Bastin"));
-        people.add(new Person("Richard", "Banasiak"));
-        people.add(new Person("Kenton", "Watson"));
-        people.add(new Person("Steve", "Johnson"));
-        people.add(new Person("Theo", "Kanning"));
-        people.add(new Person("Joe", "Rider"));
-        people.add(new Person("Patrick", "Fuentes"));
-        people.add(new Person("Jeff", "Huston"));
-        people.add(new Person("Jayd", "Saucedo"));
-        people.add(new Person("Steve", "Barton"));
-        people.add(new Person("Stephen", "Hopper"));
-        people.add(new Person("Stevie", "Bastin"));
-        people.add(new Person("Steve", "Bustin"));
-        people.add(new Person("Steve", "Backin"));
-
+        loadEmployees();
         AutoCompleteTextView searchBar = (AutoCompleteTextView) findViewById(R.id.search_bar_normal);
         SearchAdapter adapter = new SearchAdapter(this, R.layout.name_row, people );
         searchBar.setAdapter(adapter);
@@ -61,5 +51,36 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadEmployees() {
+        BufferedReader reader = null;
+        try {
+            InputStream is = getResources().openRawResource(R.raw.nerdery_employees);
+            reader = new BufferedReader(new InputStreamReader(is));
+            String nameString;
+            while((nameString = reader.readLine()) != null) {
+                String[] names = splitIntoFirstAndLastName(nameString);
+                this.people.add(new Person(names[0], names[1]));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private String[] splitIntoFirstAndLastName(String name) {
+        int index = name.indexOf(" ");
+        String firstName = name.substring(0, index);
+        String lastName = name.substring(index + 1);
+
+        return new String[] {firstName, lastName};
     }
 }
