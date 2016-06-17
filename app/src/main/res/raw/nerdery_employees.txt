@@ -18,8 +18,8 @@ Alex Johnson
 Alex Trevino
 Alex Wefel
 Alexander Arbit
-Allison	Johnson
-Allison	Knauss
+Allison Johnson
+Allison Knauss
 Alyssa Fuller
 Amanda Anderson
 Amanda Farris
@@ -47,8 +47,8 @@ Ben Dolmar
 Ben Koren
 Ben Liset
 Ben Myers
-Bethany	Hall
-Bettina	Nicholson
+Bethany Hall
+Bettina Nicholson
 Bill Ayakatubby
 Bill Brown
 Bob Amaden
@@ -194,8 +194,8 @@ Jeff Johnston
 Jeff Klawiter
 Jeff Larsen
 Jeff Maki
-Jeffrey	Nagar
-Jeffrey	Thomas
+Jeffrey Nagar
+Jeffrey Thomas
 Jen Heilemann
 Jen Herbst
 Jenny Dang
@@ -254,7 +254,7 @@ Justin Hendrickson
 Justin Holman
 Justin Mullin
 Kai Esbensen
-Kaitlin	Muth
+Kaitlin Muth
 Kaleb Luhman
 Karen Sykora
 Kari Primeau
@@ -272,7 +272,7 @@ Kelly Lamkins
 Kelly McHugh Priadka
 Kelsey MacGibbon
 Kelvin Schutz
-Ken Ballard	
+Ken Ballard
 Ken Beck
 Ken Martino
 Ken Sykora
@@ -328,9 +328,9 @@ Matt Janssen
 Matt Luker
 Matt Mrozinski
 Matt Sieker
-Matthew	Green
-Matthew	Loberg
-Matthew	Perry
+Matthew Green
+Matthew Loberg
+Matthew Perry
 Matthew T. Larson
 Max Kaplan
 Maxim Korsukov
@@ -390,11 +390,11 @@ Pablo Philipps
 Paige Vigil
 Pam Butkowski
 Pat Padgett
-Patrick	Fuentes
-Patrick	Garrity
-Patrick	Jannette
-Patrick	Schippers
-Patrick	Stephen
+Patrick Fuentes
+Patrick Garrity
+Patrick Jannette
+Patrick Schippers
+Patrick Stephen
 Paul Tran
 Paul Trandem
 Paul Wunderlich
@@ -408,8 +408,8 @@ Peter Marty
 Peter Purcell
 Peter Soderberg
 RaNae Franke
-Richard	Banasiak
-Richard	Blaalid
+Richard Banasiak
+Richard Blaalid
 Rick Hodgett
 Rick Roth
 RJ Marquez

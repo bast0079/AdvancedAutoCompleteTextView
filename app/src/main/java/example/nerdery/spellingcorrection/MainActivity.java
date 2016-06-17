@@ -1,5 +1,6 @@
 package example.nerdery.spellingcorrection;
 
+
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -54,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     private void loadEmployees() {
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(getAssets().open("nerdery_employees.txt")));
+            InputStream is = getResources().openRawResource(R.raw.nerdery_employees);
+            reader = new BufferedReader(new InputStreamReader(is));
             String nameString;
             while((nameString = reader.readLine()) != null) {
                 String[] names = splitIntoFirstAndLastName(nameString);
