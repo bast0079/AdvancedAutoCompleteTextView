@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.nerdery.spellingcorrection.BuildConfig;
 import example.nerdery.spellingcorrection.R;
 import example.nerdery.spellingcorrection.common.MisspellingTools;
 import example.nerdery.spellingcorrection.model.Person;
@@ -86,14 +87,18 @@ public class SearchAdapter extends ArrayAdapter<Person> implements Filterable {
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if(results.values != null) {
                     filteredGuests = (List<Person>)results.values;
-                    if(filteredGuests.size() == 0 && constraint != null && constraint.length() > 3) {
-                        String constraintName = constraint.toString().replaceAll("\\s", "");
-                        List<Person> peeps = MisspellingTools.bestMatches(constraintName, persons);
-                        int originalLength = peeps.size();
-                        int finalIndex = (originalLength <= MAX_RESULTS) ? originalLength : MAX_RESULTS;
-                        List<Person> topN = peeps.subList(0, finalIndex);
-                        filteredGuests = topN;
+
+                    if(BuildConfig.HAS_SPELLING_CORRECTION) {
+                        if(filteredGuests.size() == 0 && constraint != null && constraint.length() > 3) {
+                            String constraintName = constraint.toString().replaceAll("\\s", "");
+                            List<Person> peeps = MisspellingTools.bestMatches(constraintName, persons);
+                            int originalLength = peeps.size();
+                            int finalIndex = (originalLength <= MAX_RESULTS) ? originalLength : MAX_RESULTS;
+                            List<Person> topN = peeps.subList(0, finalIndex);
+                            filteredGuests = topN;
+                        }
                     }
+
                     notifyDataSetChanged();
                 }
             }
