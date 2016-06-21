@@ -18,7 +18,7 @@ import example.nerdery.spellingcorrection.model.Person;
  */
 public class MisspellingTools {
 
-    private static double INFO_THRESHOLD = .75;
+    private static final double INFO_THRESHOLD = .80;
 
     /**
      * Returns a list of people that are within the threshold of the mutual information they reveal
@@ -34,12 +34,13 @@ public class MisspellingTools {
         for (Person p : people) {
             double mutual = mutualInformation(searchTerm, p.getFullName());
             double theoreticalYield = (searchEntropy - mutual) / searchEntropy;
-            Log.d("Entropy", "SearchTerm: " + searchEntropy);
-            Log.d("Entropy", "Person: " + p.getFullName());
-            Log.d("Entropy", "Mutual: " + mutual);
-            Log.d("Entropy", "Yield: " + theoreticalYield);
-            Log.d("Entropy", "");
+
             if(theoreticalYield > INFO_THRESHOLD) {
+                Log.d("Entropy", "SearchTerm: " + searchEntropy);
+                Log.d("Entropy", "Person: " + p.getFullName());
+                Log.d("Entropy", "Mutual: " + mutual);
+                Log.d("Entropy", "Yield: " + theoreticalYield);
+                Log.d("Entropy", "");
                 matches.put(p, mutual);
             }
         }
@@ -178,15 +179,6 @@ public class MisspellingTools {
      */
     private static double log(double proportion) {
         return Math.log(proportion) / Math.log(2.0);
-    }
-
-
-    public double getInfoThreshold() {
-        return INFO_THRESHOLD;
-    }
-
-    public void setInfoThreshold(double infoThreshold) {
-        INFO_THRESHOLD = infoThreshold;
     }
 
 }

@@ -19,12 +19,13 @@ import example.nerdery.spellingcorrection.model.Person;
 /**
  * Created by sbastin on 4/4/16.
  */
-public class SearchAdapter extends ArrayAdapter<Person> implements Filterable{
+public class SearchAdapter extends ArrayAdapter<Person> implements Filterable {
+
+    private static final int MAX_RESULTS = 10;
     Context context;
     int layoutResourceId;
     List<Person> persons;
     List<Person> filteredGuests;
-
 
     TextView personNameLabel;
 
@@ -39,7 +40,7 @@ public class SearchAdapter extends ArrayAdapter<Person> implements Filterable{
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(layoutResourceId, parent, false);
-        //TODO: add in layout xml
+
         personNameLabel = (TextView) convertView.findViewById(R.id.row_person_name);
         Person guest = filteredGuests.get(position);
         String guestName = guest.getFirstName().concat(" ").concat(guest.getLastName());
@@ -80,14 +81,18 @@ public class SearchAdapter extends ArrayAdapter<Person> implements Filterable{
                 }
                 return filterResults;
             }
-            //TODO: add in the mispelling tools
+
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if(results.values != null) {
                     filteredGuests = (List<Person>)results.values;
                     if(filteredGuests.size() == 0 && constraint != null && constraint.length() > 3) {
-                        List<Person> peeps = MisspellingTools.bestMatches(constraint.toString(), persons);
-                        filteredGuests = peeps;
+                        String constraintName = constraint.toString().replaceAll("\\s", "");
+                        List<Person> peeps = MisspellingTools.bestMatches(constraintName, persons);
+                        int originalLength = peeps.size();
+                        int finalIndex = (originalLength <= MAX_RESULTS) ? originalLength : MAX_RESULTS;
+                        List<Person> topN = peeps.subList(0, finalIndex);
+                        filteredGuests = topN;
                     }
                     notifyDataSetChanged();
                 }
