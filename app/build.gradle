@@ -17,6 +17,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        withCorrection {
+            applicationId "example.nerdery.spellingcorrection"
+            buildConfigField "boolean", "HAS_SPELLING_CORRECTION", "true"
+        }
+
+        withoutCorrection {
+            applicationId "example.nerdery.spellingcorrection.without"
+            buildConfigField "boolean", "HAS_SPELLING_CORRECTION", "false"
+        }
+    }
 }
 
 dependencies {
