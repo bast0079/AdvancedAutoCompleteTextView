@@ -22,11 +22,15 @@ android {
         withCorrection {
             applicationId "example.nerdery.spellingcorrection"
             buildConfigField "boolean", "HAS_SPELLING_CORRECTION", "true"
+            resValue "string", "app_name", "Advanced Auto-Compete TextView"
+
         }
 
         withoutCorrection {
             applicationId "example.nerdery.spellingcorrection.without"
             buildConfigField "boolean", "HAS_SPELLING_CORRECTION", "false"
+            resValue "string", "app_name", "Auto-Compete TextView"
+
         }
     }
 }

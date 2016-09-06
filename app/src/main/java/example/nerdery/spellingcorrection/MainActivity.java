@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,32 +28,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initToolbar();
+        loadEmployees();
+        initAdapter();
+    }
+
+    private void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        loadEmployees();
-        AutoCompleteTextView searchBar = (AutoCompleteTextView) findViewById(R.id.search_bar_normal);
+    }
+
+    private void initAdapter() {
+        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.search_bar_normal);
         SearchAdapter adapter = new SearchAdapter(this, R.layout.name_row, people );
-        searchBar.setAdapter(adapter);
+        if(autoCompleteTextView != null) {
+            autoCompleteTextView.setAdapter(adapter);
+            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String fullName = ((TextView)view
+                            .findViewById(R.id.row_person_name))
+                            .getText()
+                            .toString();
 
-    }
+                    autoCompleteTextView.setText(fullName);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+                }
+            });
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Load in your searchable content how you like, i.e. api call, load from file, retrieve from
+     * SqlLite db
+     */
     private void loadEmployees() {
         BufferedReader reader = null;
         try {
